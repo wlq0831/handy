@@ -1,0 +1,192 @@
+﻿<hc:Window x:Class="Handy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:Handy"
+        mc:Ignorable="d"
+        x:Name="mainWindow"
+        Background="#FF223364"
+        WindowStartupLocation="CenterScreen"
+        Title="管理系统" 
+        ShowNonClientArea="False"
+        ShowIcon="True"
+        ShowTitle="True"
+        Loaded="Window_Loaded"
+        NonClientAreaHeight="30"
+        Width="1400" 
+        Height="900" 
+        SizeChanged="Window1_SizeChanged" NonClientAreaBackground="#FF2252E0"
+        >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDark.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+
+    <DockPanel Margin="0,0,0,0" >
+        <DockPanel DockPanel.Dock="Left" LastChildFill="True"  Grid.Row="0" Grid.Column="0" Background="#FF393C40"  >
+            <!--顶部区域-->
+            <StackPanel DockPanel.Dock="Top" Background="#FF2252E0">
+                <Border  Background="Transparent" DockPanel.Dock="Top" Height="50" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                    <StackPanel  Orientation="Horizontal">
+                        <Image Source="/logo.png" Width="40" Height="40" Margin="10,0,0,0"  />
+                        <TextBlock Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="12">管理系统</TextBlock>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <!-- 导航栏控件 -->
+            <DockPanel  Grid.Row="1">
+                <StackPanel DockPanel.Dock="Bottom"  Height="50" >
+                    <Grid Margin="0 0">
+                        <ListBox x:Name="Menu2" SelectionChanged="Menu2_SelectionChanged" Background="#FF393C40" BorderBrush="#FF393C40">
+
+                            <ListBoxItem  Padding="60 14 0 14" FontSize="14" Foreground="White" Background="#FF393C40">
+                                <WrapPanel>
+                                    <!--<materialDesign:PackIcon Kind="LocationExit" Width="20" Height="20" Foreground="White"/>-->
+                                    <TextBlock Text="退出系统" Height="20" Margin="10,0,0,0" />
+                                </WrapPanel>
+                            </ListBoxItem>
+                        </ListBox>
+                    </Grid>
+                </StackPanel>
+
+                <ScrollViewer  DockPanel.Dock="Top" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel   Width="225"  x:Name="Menu" >
+                        <hc:SideMenu BorderThickness="1" Margin="0" BorderBrush="#FF393C40">
+                            <hc:Interaction.Triggers>
+                                <hc:EventTrigger EventName="SelectionChanged">
+                                    <hc:EventToCommand Command="{Binding SwitchItemCmd}" PassEventArgsToCommand="True" />
+                                </hc:EventTrigger>
+                            </hc:Interaction.Triggers>
+                            <hc:SideMenuItem Header="基础信息" Background="#FF393C40" Foreground="#FF9FBBEA" FontSize="14">
+                                <hc:SideMenuItem.Icon>
+                                    <Image Source="/logo.png" Width="24" Height="24"/>
+                                </hc:SideMenuItem.Icon>
+                                <hc:SideMenuItem Header="首页" Command="{Binding SelectCmd}" 
+                                                 CommandParameter="{Binding Header,RelativeSource={RelativeSource Self}}"
+                                                 Background="#FF393C40"  Foreground="White" FontSize="14" MouseDown="SideMenuItem_MouseDown"
+                                                 >
+                                    <hc:SideMenuItem.Icon>
+                                        <TextBlock Text="&#xe62c;" FontSize="12" Foreground="White" Style="{StaticResource iconfont}"/>
+                                    </hc:SideMenuItem.Icon>
+                                </hc:SideMenuItem>
+                                <hc:SideMenuItem Header="用户管理" Command="{Binding SelectCmd}" 
+                                                 CommandParameter="{Binding Header,RelativeSource={RelativeSource Self}}"
+                                                 Background="#FF393C40"  Foreground="White" FontSize="14"
+                                                 MouseDown="SideMenuItem_MouseDown">
+                                    <hc:SideMenuItem.Icon>
+                                        <TextBlock Text="&#xe62c;" FontSize="12" Foreground="White" Style="{StaticResource iconfont}"/>
+                                    </hc:SideMenuItem.Icon>
+                                </hc:SideMenuItem>
+                                <hc:SideMenuItem Header="角色管理" Command="{Binding SelectCmd}" 
+                                                 CommandParameter="{Binding Header,RelativeSource={RelativeSource Self}}"
+                                                 Background="#FF393C40"  Foreground="White" FontSize="14"
+                                                 MouseDown="SideMenuItem_MouseDown">
+                                    <hc:SideMenuItem.Icon>
+                                        <TextBlock Text="&#xe62c;" FontSize="12" Foreground="White" Style="{StaticResource iconfont}"/>
+                                    </hc:SideMenuItem.Icon>
+                                </hc:SideMenuItem>
+                            </hc:SideMenuItem>
+                            <hc:SideMenuItem Header="业务管理"  Background="#FF393C40"  Foreground="#FF9FBBEA" FontSize="14">
+                                <hc:SideMenuItem.Icon>
+                                    <Image Source="/logo.png" Width="24" Height="24"/>
+                                </hc:SideMenuItem.Icon>
+                                <hc:SideMenuItem Header="标签拣选" Background="#FF393C40"  Foreground="White" FontSize="14"
+                                                 MouseDown="SideMenuItem_MouseDown">
+                                    <hc:SideMenuItem.Icon>
+                                        <TextBlock Text="&#xe62c;" FontSize="12" Foreground="White" Style="{StaticResource iconfont}"/>
+                                    </hc:SideMenuItem.Icon>
+                                </hc:SideMenuItem>
+                                <hc:SideMenuItem Header="当日看板" Background="#FF393C40"  Foreground="White" FontSize="14" 
+                                                 MouseDown="SideMenuItem_MouseDown">
+                                    <hc:SideMenuItem.Icon>
+                                        <TextBlock Text="&#xe62c;" FontSize="12" Foreground="White" Style="{StaticResource iconfont}"/>
+                                    </hc:SideMenuItem.Icon>
+                                </hc:SideMenuItem>
+                                <hc:SideMenuItem Header="历史记录" Background="#FF393C40"  Foreground="White" FontSize="14"
+                                                 MouseDown="SideMenuItem_MouseDown">
+                                    <hc:SideMenuItem.Icon>
+                                        <TextBlock Text="&#xe62c;" FontSize="12" Foreground="White" Style="{StaticResource iconfont}"/>
+                                    </hc:SideMenuItem.Icon>
+                                </hc:SideMenuItem>
+                            </hc:SideMenuItem>
+                        </hc:SideMenu>
+
+
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </DockPanel>
+        <DockPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,0">
+            <DockPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </DockPanel.Background>
+
+            <!--顶部栏-->
+            <DockPanel Background="#FF2252E0"  DockPanel.Dock="Top" Height="50" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                <!--标题框-->
+                <WrapPanel DockPanel.Dock="Left"  VerticalAlignment="Center" Margin="10,0,0,0">
+                    <!--<Image Width="30" Source="/Resources/images/11.png"  VerticalAlignment="Center"/>-->
+                    <TextBlock Text="&#xe623;" Style="{StaticResource iconfont}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock Text="{Binding CurentMenu}" Foreground="White" VerticalAlignment="Center"  Margin="10,0,0,0" />
+                </WrapPanel>
+
+                <!--用户信息框-->
+                <DockPanel   VerticalAlignment="Center" HorizontalAlignment="Right" Cursor="Hand">
+
+                    <!--关闭按钮-->
+                    <Button x:Name="CloseBtn" Width="30" Cursor="Hand" FontSize="12" Opacity="0.8" Margin="0,0,0,0" Padding="0" Background="Transparent" Foreground="White" BorderBrush="Transparent" Click="CloseBtn_Click" HorizontalAlignment="Right"  DockPanel.Dock="Right">
+                        <TextBlock Text="&#xe605;" FontSize="14" Style="{StaticResource iconfont}" />
+                    </Button>
+
+                    <!--缩放按钮-->
+                    <Button x:Name="ZoomBtn" Width="30" Cursor="Hand" Opacity="0.8" Margin="0,0,0,0" Padding="0" Background="Transparent" Foreground="White" BorderBrush="Transparent" Click="ZoomBtn_Click" HorizontalAlignment="Right"  DockPanel.Dock="Right">
+                        <TextBlock Text="&#xe673;"  FontSize="24" Style="{StaticResource iconfont}" />
+                    </Button>
+
+                    <!--最小化按钮-->
+                    <Button x:Name="MinBtn" Width="30" Cursor="Hand" Opacity="0.8" Margin="10,0,0,0" Padding="0" Background="Transparent" Foreground="White" BorderBrush="Transparent" Click="MinBtn_Click" HorizontalAlignment="Right"  DockPanel.Dock="Right">
+                        <TextBlock Text="&#xe62c;"  FontSize="18" Style="{StaticResource iconfont}" />
+                    </Button>
+
+                    <!--用户按钮-->
+                    <Button x:Name="UserBtn" Click="s_Click" Background="Transparent" Foreground="White" BorderBrush="Transparent" Cursor="Hand" Padding="0" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal"  Background="Transparent" Cursor="Hand">
+                            <hc:Gravatar x:Name="Avata"  Id="User4" Width="30" Height="30" Margin="10 0"  Style="{StaticResource GravatarCircleImg}">
+                                <Image Source="/Resources/images/11.png"  Height="30"/>
+                            </hc:Gravatar>
+                            <TextBlock Text="{Binding UserName}" FontSize="14" Foreground="White"  VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Text="&#xe76a;" Opacity="0.7" Style="{StaticResource iconfont}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Margin="6 0"/>
+
+                            <!--按钮下拉菜单-->
+                            <StackPanel.ContextMenu>
+                                <ContextMenu x:Name="menu" Placement="Bottom"  Width="160" >
+                                    <MenuItem x:Name="ChangeTheme" Click="ChangeThemeBtn_Click" Header="修改主题" />
+
+                                    <Separator x:Name="UserListSeparator"  Visibility="Collapsed"/>
+                                    <MenuItem x:Name="ChangePwdBtn" Click="ChangePwdBtn_Click" Header="修改密码" />
+                                    <MenuItem x:Name="UserListBtn" Click="UserListBtn_Click" Header="管理用户" Visibility="Collapsed"/>
+                                    <Separator/>
+
+                                    <MenuItem Name="LogoutBtn" Click="LogoutBtn_Click" Header="退出登录"/>
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
+                        </StackPanel>
+                    </Button>
+                </DockPanel>
+            </DockPanel>
+
+            <!--tab页签栏-->
+            <hc:TabControl x:Name="tabControl" Margin="0,0,0,0" IsAnimationEnabled="True" ShowCloseButton="True" IsDraggable="False" IsTabFillEnabled="True" >
+            </hc:TabControl>
+        </DockPanel>
+    </DockPanel>
+</hc:Window>

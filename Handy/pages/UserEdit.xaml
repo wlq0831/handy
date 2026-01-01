@@ -1,0 +1,50 @@
+﻿<hc:Window x:Class="Handy.pages.UserEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Handy.utils"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        mc:Ignorable="d"
+                   ShowIcon="True"
+        ShowTitle="True"
+                   ShowNonClientArea="True"
+                   NonClientAreaHeight="60"
+                   WindowStartupLocation="CenterScreen"
+           NonClientAreaBackground="#FFAEBFF3"
+        Title="用户编辑" Height="450" Width="600" ResizeMode="NoResize" NonClientAreaForeground="White">
+    <DockPanel Name="userEdit" LastChildFill="True">
+        <Border DockPanel.Dock="Bottom" Height="70" HorizontalAlignment="Stretch" Background="White">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Height="30" Width="70" Margin="10,8,10,8"  Content="确定" Style="{StaticResource ButtonPrimary}" Command="{Binding ApplyCommand}"/>
+                <Button Height="30" Width="70" Margin="10,8,20,8" Content="关闭" Style="{StaticResource ButtonPrimary}" Command="{Binding CancleCommand}"/>
+            </StackPanel>
+        </Border>
+        <Grid Width="400" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="登录账号：" Margin="10" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <hc:TextBox Margin="10" Grid.Row="0" Grid.Column="1" Text="{Binding User.user_name}"/>
+
+            <TextBlock Text="真实姓名：" Margin="10" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <hc:TextBox Margin="10" Grid.Row="1" Grid.Column="1" Text="{Binding User.true_name}"/>
+
+            <TextBlock Text="账号类型：" Margin="10" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <hc:TextBox Margin="10" Grid.Row="2" Grid.Column="1" Text="{Binding User.user_power}"/>
+
+            <TextBlock Text="密码：" Margin="10" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <PasswordBox Name="password" Margin="10" Grid.Row="4" Grid.Column="1" hc:InfoElement.Placeholder="请输入密码" 
+                         local:PasswordBoxAssistant.Password="{Binding User.password, Mode=TwoWay}" />
+        </Grid>
+    </DockPanel>
+</hc:Window>
